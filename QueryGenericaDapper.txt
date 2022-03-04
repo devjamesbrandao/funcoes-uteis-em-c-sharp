@@ -1,0 +1,13 @@
+******************************************QUERYASYNC GENÉRICO COM DAPPER*********************************************************************
+-> private async Task<IEnumerable<T>> QueryListAsync<T>(string SQL, dynamic obj) => await _context.Connection.QueryAsync<T>(SQL, (object)obj);
+## Retorna um ou vários registros (similar ao ToListAsync do EF).
+--> T: DTO para mapear o retorno obtido do banco de dados.
+--> SQL: select que será executado no banco de dados. OBS: os parâmetros do select devem ser precedidos pelo caractere '@'.
+  -> Exemplo: select * from Pessoa where nome = @nome;
+--> obj: objeto anônimo com os parâmetros informados na query.
+  -> Exemplo: await QueryListAsync<Pessoa>("SELECT * FROM PESSOA WHERE NOME = @nome AND IDADE = @idade", new { nome = "JÚLIA", idade = 18 });
+
+***************************************QUERYFIRSTORDEFAULTASYNC COM DAPPER********************************************************************
+-> private async Task<T> QuerySingleAsync<T>(string SQL, dynamic obj) => await _context.Connection.QueryFirstOrDefaultAsync<T>(SQL, (object)obj);
+## Retorna apenas um registro (similar ao FirsOrDefaultAsync do EF).
+--> Mesma descrição do exemplo anterior.
